@@ -24,6 +24,17 @@ export default function Hero({ restaurantInfo, restaurantSettings }: HeroProps) 
 
       {/* Content */}
       <div className="relative z-10 text-center text-white px-4">
+        {/* Logo */}
+        {restaurantInfo.metadata.logo && (
+          <div className="mb-8 animate-fade-in">
+            <img
+              src={`${restaurantInfo.metadata.logo.imgix_url}?w=200&h=120&fit=max&auto=format,compress`}
+              alt={restaurantInfo.metadata.restaurant_name}
+              className="h-20 w-auto mx-auto mb-4"
+            />
+          </div>
+        )}
+        
         <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
           {heroText}
         </h1>
