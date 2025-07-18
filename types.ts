@@ -34,6 +34,10 @@ export interface RestaurantInfo extends CosmicObject {
     phone: string;
     hours?: string;
     order_link?: string;
+    nav_logo?: {
+      url: string;
+      imgix_url: string;
+    };
     logo?: {
       url: string;
       imgix_url: string;
