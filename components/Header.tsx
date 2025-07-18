@@ -5,7 +5,7 @@ interface HeaderProps {
 }
 
 export default function Header({ restaurantInfo }: HeaderProps) {
-  const logo = restaurantInfo.metadata?.logo
+  const navLogo = restaurantInfo.metadata?.nav_logo
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary bg-opacity-95 backdrop-blur-sm border-b border-gray-medium">
@@ -13,13 +13,13 @@ export default function Header({ restaurantInfo }: HeaderProps) {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            {logo && (
+            {navLogo && (
               <img 
-                src={`${logo.imgix_url}?w=320&h=160&fit=crop&auto=format,compress`}
+                src={`${navLogo.imgix_url}?w=80&h=40&fit=crop&auto=format,compress`}
                 alt={restaurantInfo.metadata?.restaurant_name}
-                width="160"
-                height="80"
-                className="h-24 w-auto"
+                width="40"
+                height="20"
+                className="h-10 w-auto"
               />
             )}
             <h1 className="text-xl font-bold text-secondary">

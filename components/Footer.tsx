@@ -6,6 +6,7 @@ interface FooterProps {
 
 export default function Footer({ restaurantInfo }: FooterProps) {
   const metadata = restaurantInfo.metadata
+  const logo = restaurantInfo.metadata?.logo
   const currentYear = new Date().getFullYear()
 
   return (
@@ -14,6 +15,15 @@ export default function Footer({ restaurantInfo }: FooterProps) {
         <div className="grid md:grid-cols-3 gap-8">
           {/* Restaurant Info */}
           <div>
+            {logo && (
+              <img 
+                src={`${logo.imgix_url}?w=640&h=320&fit=crop&auto=format,compress`}
+                alt={metadata?.restaurant_name}
+                width="320"
+                height="160"
+                className="h-32 w-auto mb-4"
+              />
+            )}
             <h3 className="text-xl font-bold mb-4 text-accent">
               {metadata?.restaurant_name}
             </h3>
