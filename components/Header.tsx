@@ -15,11 +15,11 @@ export default function Header({ restaurantInfo }: HeaderProps) {
           <div className="flex items-center space-x-3">
             {navLogo && (
               <img 
-                src={`${navLogo.imgix_url}?w=80&h=40&fit=crop&auto=format,compress`}
+                src={`${navLogo.imgix_url}?w=140&h=70&fit=crop&auto=format,compress`}
                 alt={restaurantInfo.metadata?.restaurant_name}
-                width="40"
-                height="20"
-                className="h-10 w-auto"
+                width="70"
+                height="35"
+                className="h-[17.5] w-auto"
               />
             )}
             <h1 className="text-xl font-bold text-secondary">
