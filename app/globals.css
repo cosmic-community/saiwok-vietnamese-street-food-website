@@ -13,10 +13,11 @@
     --gray-dark: 0 0% 12%;
     --gray-medium: 0 0% 20%;
     --gray-light: 0 0% 40%;
+    --border: 0 0% 20%;
   }
   
   * {
-    @apply border-border;
+    @apply border-gray-medium;
   }
   
   body {
