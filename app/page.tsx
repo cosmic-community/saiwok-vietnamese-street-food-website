@@ -1,4 +1,4 @@
-import { getRestaurantInfo } from '@/lib/cosmic'
+import { getRestaurantInfo, getMenuCategories, getMenuItems, getReviews } from '@/lib/cosmic'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
@@ -15,14 +15,21 @@ export default async function Home() {
     return <div>Loading...</div>
   }
 
+  // Fetch menu and review data
+  const [categories, menuItems, reviews] = await Promise.all([
+    getMenuCategories(),
+    getMenuItems(),
+    getReviews()
+  ])
+
   return (
     <main>
       <AnnouncementBanner restaurantInfo={restaurantInfo} />
       <Header restaurantInfo={restaurantInfo} />
       <Hero restaurantInfo={restaurantInfo} />
       <About restaurantInfo={restaurantInfo} />
-      <Menu restaurantInfo={restaurantInfo} />
-      <Reviews restaurantInfo={restaurantInfo} />
+      <Menu categories={categories} items={menuItems} />
+      <Reviews reviews={reviews} />
       <Contact restaurantInfo={restaurantInfo} />
       <Footer restaurantInfo={restaurantInfo} />
     </main>

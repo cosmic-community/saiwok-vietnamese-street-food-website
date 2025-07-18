@@ -106,13 +106,17 @@ export interface Review extends CosmicObject {
 // Component Props interfaces
 export interface HeroProps {
   restaurantInfo: RestaurantInfo;
-  settings?: RestaurantSettings | null; // Made optional and nullable
+  settings?: RestaurantSettings | null;
   showOrdering?: boolean;
 }
 
 export interface MenuProps {
-  menuItems: MenuItem[];
-  categories?: MenuCategory[];
+  categories: MenuCategory[];
+  items: MenuItem[];
+}
+
+export interface ReviewsProps {
+  reviews: Review[];
 }
 
 // Type literals for select-dropdown and checkbox values
