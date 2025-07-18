@@ -3,10 +3,10 @@ import MenuCategorySection from '@/components/MenuCategorySection'
 
 interface MenuProps {
   categories: MenuCategory[]
-  menuItems: MenuItem[]
+  items: MenuItem[]
 }
 
-export default function Menu({ categories, menuItems }: MenuProps) {
+export default function Menu({ categories, items }: MenuProps) {
   if (categories.length === 0) {
     return null
   }
@@ -25,7 +25,7 @@ export default function Menu({ categories, menuItems }: MenuProps) {
 
         <div className="space-y-16">
           {categories.map((category) => {
-            const categoryItems = menuItems.filter(
+            const categoryItems = items.filter(
               item => item.metadata?.category?.id === category.id && item.metadata?.available !== false
             )
             

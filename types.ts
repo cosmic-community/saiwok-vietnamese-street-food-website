@@ -43,7 +43,13 @@ export interface RestaurantInfo extends CosmicObject {
       imgix_url: string;
     };
     about?: string;
-    announcement?: string; // Add announcement property to RestaurantInfo
+    announcement?: string;
+    hero_image?: {
+      url: string;
+      imgix_url: string;
+    };
+    hero_title?: string;
+    hero_subtitle?: string;
   };
 }
 

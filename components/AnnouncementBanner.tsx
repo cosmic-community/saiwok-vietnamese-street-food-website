@@ -1,8 +1,16 @@
+import { RestaurantInfo } from '@/types'
+
 interface AnnouncementBannerProps {
-  announcement: string
+  restaurantInfo: RestaurantInfo
 }
 
-export default function AnnouncementBanner({ announcement }: AnnouncementBannerProps) {
+export default function AnnouncementBanner({ restaurantInfo }: AnnouncementBannerProps) {
+  const announcement = restaurantInfo.metadata?.announcement
+  
+  if (!announcement) {
+    return null
+  }
+
   return (
     <div className="bg-accent text-white py-3 px-4 text-center relative">
       <div 
