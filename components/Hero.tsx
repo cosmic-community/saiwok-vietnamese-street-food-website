@@ -28,11 +28,11 @@ export default function Hero({ settings, restaurantInfo, showOrdering }: HeroPro
           {logo && (
             <div className="mb-8">
               <img 
-                src={`${logo.imgix_url}?w=600&h=300&fit=crop&auto=format,compress`}
+                src={`${logo.imgix_url}?w=800&h=400&fit=crop&auto=format,compress`}
                 alt={restaurantInfo.metadata?.restaurant_name}
-                width="300"
-                height="150"
-                className="mx-auto h-32 w-auto"
+                width="400"
+                height="200"
+                className="mx-auto h-48 md:h-64 w-auto"
               />
             </div>
           )}
