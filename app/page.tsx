@@ -1,51 +1,66 @@
-import { getRestaurantInfo, getMenuItems, getReviews } from '@/lib/cosmic'
-import Header from '@/components/Header'
-import AnnouncementBanner from '@/components/AnnouncementBanner'
+import { getRestaurantSettings, getRestaurantInfo, getMenuCategories, getMenuItems, getFeaturedReviews } from '@/lib/cosmic'
 import Hero from '@/components/Hero'
+import AnnouncementBanner from '@/components/AnnouncementBanner'
 import About from '@/components/About'
 import Menu from '@/components/Menu'
 import Reviews from '@/components/Reviews'
 import Contact from '@/components/Contact'
-import Footer from '@/components/Footer'
 
 export default async function Home() {
-  const [restaurantInfo, menuItems, reviews] = await Promise.all([
+  // Fetch all data in parallel
+  const [settings, restaurantInfo, categories, menuItems, reviews] = await Promise.all([
+    getRestaurantSettings(),
     getRestaurantInfo(),
+    getMenuCategories(),
     getMenuItems(),
-    getReviews()
+    getFeaturedReviews()
   ])
 
+  // Handle case where restaurant info is not found
   if (!restaurantInfo) {
-    return <div>Loading...</div>
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Restaurant information not found</h1>
+          <p className="text-gray-600">Please check your CMS configuration.</p>
+        </div>
+      </div>
+    )
   }
+
+  const showOrdering = settings?.metadata?.show_ordering ?? true
+  const announcement = settings?.metadata?.announcement
 
   return (
     <main>
-      <Header restaurantInfo={restaurantInfo} />
-      
-      {/* Announcement Banner positioned below header */}
-      {restaurantInfo.metadata?.announcement && (
-        <div className="pt-20"> {/* Add padding-top to account for fixed header */}
-          <AnnouncementBanner announcement={restaurantInfo.metadata.announcement} />
-        </div>
+      {/* Announcement Banner */}
+      {announcement && (
+        <AnnouncementBanner announcement={announcement} />
       )}
-      
-      {/* Main content with proper spacing */}
-      <div className={restaurantInfo.metadata?.announcement ? "" : "pt-20"}>
-        <Hero 
-          restaurantInfo={restaurantInfo} 
-          showOrdering={!!restaurantInfo.metadata?.order_link}
-        />
-        <About restaurantInfo={restaurantInfo} />
-        <Menu 
-          menuItems={menuItems} 
-          categories={[]} // Pass empty array for now - can be populated later if needed
-        />
+
+      {/* Hero Section */}
+      <Hero 
+        settings={settings}
+        restaurantInfo={restaurantInfo}
+        showOrdering={showOrdering}
+      />
+
+      {/* About Section */}
+      <About restaurantInfo={restaurantInfo} />
+
+      {/* Menu Section */}
+      <Menu 
+        categories={categories}
+        menuItems={menuItems}
+      />
+
+      {/* Reviews Section */}
+      {reviews.length > 0 && (
         <Reviews reviews={reviews} />
-        <Contact restaurantInfo={restaurantInfo} />
-      </div>
-      
-      <Footer restaurantInfo={restaurantInfo} />
+      )}
+
+      {/* Contact Section */}
+      <Contact restaurantInfo={restaurantInfo} />
     </main>
   )
 }

@@ -10,45 +10,60 @@ export default function Hero({ settings, restaurantInfo, showOrdering }: HeroPro
   const heroImage = settings?.metadata?.hero_image
   const heroText = settings?.metadata?.hero_text || 'Welcome to Saiwok'
   const heroSubtitle = settings?.metadata?.hero_subtitle || 'Authentic Vietnamese Street Food'
-  const logo = restaurantInfo.metadata?.logo
+  const logo = restaurantInfo.metadata?.nav_logo || restaurantInfo.metadata?.logo
 
   return (
     <section 
       id="hero" 
-      className="hero-section"
-      style={{
-        backgroundImage: heroImage ? `url(${heroImage.imgix_url}?w=1920&h=1080&fit=crop&auto=format,compress)` : undefined
-      }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      <div className="hero-overlay"></div>
+      {/* Background Image */}
+      {heroImage && (
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url(${heroImage.imgix_url}?w=1920&h=1080&fit=crop&auto=format,compress)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+      )}
       
-      <div className="hero-content container">
-        <div className="animate-fade-in">
-          {/* Prominent Logo Display */}
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/50 z-10"></div>
+      
+      {/* Content Container */}
+      <div className="relative z-20 container mx-auto px-4 text-center text-white">
+        <div className="max-w-4xl mx-auto">
+          {/* Logo */}
           {logo && (
-            <div className="mb-8">
+            <div className="mb-8 animate-fade-in">
               <img 
-                src={`${logo.imgix_url}?w=800&h=400&fit=crop&auto=format,compress`}
+                src={`${logo.imgix_url}?w=600&h=300&fit=max&auto=format,compress`}
                 alt={restaurantInfo.metadata?.restaurant_name}
-                width="400"
-                height="200"
-                className="mx-auto h-48 md:h-64 w-auto"
+                className="mx-auto h-24 md:h-32 lg:h-40 w-auto drop-shadow-lg"
               />
             </div>
           )}
           
           {/* Hero Text */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">
-            {heroText}
-          </h1>
-          
-          <p className="text-xl md:text-2xl mb-8 text-gray-300 max-w-2xl mx-auto">
-            {heroSubtitle}
-          </p>
+          <div className="animate-fade-in-delay">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white drop-shadow-lg leading-tight">
+              {heroText}
+            </h1>
+            
+            <p className="text-lg md:text-xl lg:text-2xl mb-10 text-gray-100 max-w-3xl mx-auto leading-relaxed">
+              {heroSubtitle}
+            </p>
+          </div>
           
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="#menu" className="btn-primary">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay-2">
+            <a 
+              href="#menu" 
+              className="inline-flex items-center px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"
+            >
               View Menu
             </a>
             
@@ -57,12 +72,19 @@ export default function Hero({ settings, restaurantInfo, showOrdering }: HeroPro
                 href={restaurantInfo.metadata.order_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-secondary"
+                className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"
               >
                 Order Online
               </a>
             )}
           </div>
+        </div>
+      </div>
+      
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white rounded-full mt-2"></div>
         </div>
       </div>
     </section>

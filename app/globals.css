@@ -2,93 +2,133 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --primary: 0 0% 0%;
-    --secondary: 0 0% 100%;
-    --accent: 0 84% 45%;
-    --accent-light: 0 76% 60%;
-    --gray-dark: 0 0% 12%;
-    --gray-medium: 0 0% 20%;
-    --gray-light: 0 0% 40%;
-    --border: 0 0% 20%;
-  }
-  
-  * {
-    @apply border-gray-medium;
-  }
-  
-  body {
-    @apply bg-primary text-secondary font-sans;
-  }
-  
-  html {
-    scroll-behavior: smooth;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
-@layer components {
-  .container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .hero-section {
-    @apply relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat;
-  }
-  
-  .hero-overlay {
-    @apply absolute inset-0 bg-black bg-opacity-60;
-  }
-  
-  .hero-content {
-    @apply relative z-10 text-center text-white;
-  }
-  
-  .section-padding {
-    @apply py-16 sm:py-24;
-  }
-  
-  .card {
-    @apply bg-gray-dark border border-gray-medium rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl;
-  }
-  
-  .btn-primary {
-    @apply bg-accent hover:bg-accent-light text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300 inline-flex items-center justify-center;
-  }
-  
-  .btn-secondary {
-    @apply bg-transparent border-2 border-accent hover:bg-accent text-accent hover:text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 inline-flex items-center justify-center;
-  }
-  
-  .text-gradient {
-    @apply bg-gradient-to-r from-accent to-accent-light bg-clip-text text-transparent;
-  }
-  
-  .menu-item-card {
-    @apply bg-gray-dark border border-gray-medium rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl hover:border-accent;
-  }
-  
-  .spicy-indicator {
-    @apply inline-flex items-center space-x-1 text-sm;
-  }
-  
-  .dietary-badge {
-    @apply inline-block bg-accent bg-opacity-20 text-accent px-2 py-1 rounded-full text-xs font-medium;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@keyframes fade-in-delay {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
-  .animate-fade-in {
-    animation: fadeIn 0.8s ease-in-out;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes fade-in-delay-2 {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out;
+}
+
+.animate-fade-in-delay {
+  animation: fade-in-delay 0.8s ease-out 0.2s both;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fade-in-delay-2 0.8s ease-out 0.4s both;
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply inline-flex items-center px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center px-8 py-4 bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1;
+}
+
+/* Menu item card hover effects */
+.menu-item-card {
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+/* Review card styling */
+.review-card {
+  @apply bg-white rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-lg;
+}
+
+/* Star rating */
+.star-rating {
+  @apply flex items-center gap-1 text-yellow-400;
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero-title {
+    font-size: 4rem;
+    line-height: 1.1;
+  }
+}
+
+@media (min-width: 1025px) {
+  .hero-title {
+    font-size: 5rem;
+    line-height: 1.1;
+  }
+}
+
+/* Loading spinner */
+.loading-spinner {
+  @apply animate-spin rounded-full h-32 w-32 border-b-2 border-red-600;
+}
+
+/* Scroll behavior for navigation */
+section {
+  scroll-margin-top: 80px;
 }
