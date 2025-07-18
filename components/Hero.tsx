@@ -1,6 +1,6 @@
 import { RestaurantInfo } from '@/types'
 
-interface HeroProps {
+export interface HeroProps {
   restaurantInfo: RestaurantInfo
 }
 

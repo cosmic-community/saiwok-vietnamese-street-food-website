@@ -1,6 +1,6 @@
 import { RestaurantInfo } from '@/types'
 
-interface AnnouncementBannerProps {
+export interface AnnouncementBannerProps {
   restaurantInfo: RestaurantInfo
 }
 

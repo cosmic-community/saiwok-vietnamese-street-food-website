@@ -1,7 +1,7 @@
 import { MenuCategory, MenuItem } from '@/types'
 import MenuCategorySection from '@/components/MenuCategorySection'
 
-interface MenuProps {
+export interface MenuProps {
   categories: MenuCategory[]
   items: MenuItem[]
 }
