@@ -100,7 +100,7 @@ export interface Review extends CosmicObject {
 // Component Props interfaces
 export interface HeroProps {
   restaurantInfo: RestaurantInfo;
-  settings?: RestaurantSettings;
+  settings?: RestaurantSettings | null; // Made optional and nullable
   showOrdering?: boolean;
 }
 

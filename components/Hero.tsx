@@ -1,7 +1,7 @@
 import { RestaurantSettings, RestaurantInfo } from '@/types'
 
 interface HeroProps {
-  settings: RestaurantSettings | null
+  settings?: RestaurantSettings | null
   restaurantInfo: RestaurantInfo
   showOrdering: boolean
 }
