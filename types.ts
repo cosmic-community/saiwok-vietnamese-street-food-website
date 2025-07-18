@@ -73,9 +73,29 @@ export interface MenuItem extends CosmicObject {
   };
 }
 
+// Review interface
+export interface Review extends CosmicObject {
+  type: 'reviews';
+  metadata: {
+    customer_name: string;
+    rating: {
+      key: string;
+      value: string;
+    };
+    review_text: string;
+    review_date: string;
+    source?: {
+      key: ReviewSource;
+      value: string;
+    };
+    featured?: boolean;
+  };
+}
+
 // Type literals for select-dropdown and checkbox values
 export type SpicyLevel = 'none' | 'mild' | 'medium' | 'hot';
 export type DietaryOption = 'Vegetarian' | 'Vegan' | 'Gluten-Free' | 'Dairy-Free';
+export type ReviewSource = 'google' | 'yelp' | 'facebook' | 'website' | 'other';
 
 // API response types
 export interface CosmicResponse<T> {
@@ -100,6 +120,10 @@ export function isMenuCategory(obj: CosmicObject): obj is MenuCategory {
 
 export function isMenuItem(obj: CosmicObject): obj is MenuItem {
   return obj.type === 'menu-items';
+}
+
+export function isReview(obj: CosmicObject): obj is Review {
+  return obj.type === 'reviews';
 }
 
 // Helper function for error handling

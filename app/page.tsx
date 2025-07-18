@@ -1,19 +1,21 @@
-import { getRestaurantInfo, getRestaurantSettings, getMenuCategories, getMenuItems } from '@/lib/cosmic'
+import { getRestaurantInfo, getRestaurantSettings, getMenuCategories, getMenuItems, getReviews } from '@/lib/cosmic'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
 import Menu from '@/components/Menu'
+import Reviews from '@/components/Reviews'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import AnnouncementBanner from '@/components/AnnouncementBanner'
 
 export default async function HomePage() {
   try {
-    const [restaurantInfo, settings, categories, menuItems] = await Promise.all([
+    const [restaurantInfo, settings, categories, menuItems, reviews] = await Promise.all([
       getRestaurantInfo(),
       getRestaurantSettings(),
       getMenuCategories(),
-      getMenuItems()
+      getMenuItems(),
+      getReviews()
     ])
 
     // If restaurant info is not available, show a fallback
@@ -45,6 +47,8 @@ export default async function HomePage() {
         <About restaurantInfo={restaurantInfo} />
         
         <Menu categories={categories || []} menuItems={menuItems || []} />
+        
+        <Reviews reviews={reviews || []} />
         
         <Contact restaurantInfo={restaurantInfo} />
         
