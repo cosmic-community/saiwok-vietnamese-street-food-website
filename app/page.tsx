@@ -32,11 +32,11 @@ export default async function HomePage() {
 
     return (
       <main className="min-h-screen bg-primary text-secondary">
+        <Header restaurantInfo={restaurantInfo} />
+        
         {settings?.metadata?.announcement && (
           <AnnouncementBanner announcement={settings.metadata.announcement} />
         )}
-        
-        <Header restaurantInfo={restaurantInfo} />
         
         <Hero 
           settings={settings} 
