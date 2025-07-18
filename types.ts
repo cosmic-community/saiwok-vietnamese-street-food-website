@@ -43,6 +43,7 @@ export interface RestaurantInfo extends CosmicObject {
       imgix_url: string;
     };
     about?: string;
+    announcement?: string; // Add announcement property to RestaurantInfo
   };
 }
 
@@ -94,6 +95,18 @@ export interface Review extends CosmicObject {
     };
     featured?: boolean;
   };
+}
+
+// Component Props interfaces
+export interface HeroProps {
+  restaurantInfo: RestaurantInfo;
+  settings?: RestaurantSettings;
+  showOrdering?: boolean;
+}
+
+export interface MenuProps {
+  menuItems: MenuItem[];
+  categories?: MenuCategory[];
 }
 
 // Type literals for select-dropdown and checkbox values

@@ -32,9 +32,15 @@ export default async function Home() {
       
       {/* Main content with proper spacing */}
       <div className={restaurantInfo.metadata?.announcement ? "" : "pt-20"}>
-        <Hero restaurantInfo={restaurantInfo} />
+        <Hero 
+          restaurantInfo={restaurantInfo} 
+          showOrdering={!!restaurantInfo.metadata?.order_link}
+        />
         <About restaurantInfo={restaurantInfo} />
-        <Menu menuItems={menuItems} />
+        <Menu 
+          menuItems={menuItems} 
+          categories={[]} // Pass empty array for now - can be populated later if needed
+        />
         <Reviews reviews={reviews} />
         <Contact restaurantInfo={restaurantInfo} />
       </div>
