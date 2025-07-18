@@ -10,9 +10,13 @@ export default function MenuCategorySection({ category, items }: MenuCategorySec
   return (
     <div className="mb-16">
       <div className="text-center mb-8">
-        <h3 className="text-3xl font-bold text-gray-900 mb-2">{category.title}</h3>
+        <h3 className="text-3xl font-bold text-gray-900 mb-2">
+          {category.metadata.category_name}
+        </h3>
         {category.metadata.description && (
-          <p className="text-gray-600">{category.metadata.description}</p>
+          <p className="text-gray-600 text-lg">
+            {category.metadata.description}
+          </p>
         )}
       </div>
 

@@ -20,7 +20,7 @@ export default function Menu({ categories, items }: MenuProps) {
         <div className="space-y-16">
           {categories.map((category) => {
             const categoryItems = items.filter(
-              (item) => item.metadata.category?.id === category.id
+              (item) => item.metadata.category?.id === category.id && item.metadata.available
             )
             
             if (categoryItems.length === 0) return null

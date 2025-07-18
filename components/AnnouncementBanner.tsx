@@ -1,17 +1,19 @@
-import { RestaurantInfo } from '@/types'
+import { RestaurantSettings } from '@/types'
 
 interface AnnouncementBannerProps {
-  restaurantInfo: RestaurantInfo
+  restaurantSettings: RestaurantSettings | null
 }
 
-export default function AnnouncementBanner({ restaurantInfo }: AnnouncementBannerProps) {
-  if (!restaurantInfo.metadata.announcement) {
+export default function AnnouncementBanner({ restaurantSettings }: AnnouncementBannerProps) {
+  if (!restaurantSettings?.metadata.announcement) {
     return null
   }
 
   return (
     <div className="bg-red-600 text-white py-2 px-4 text-center text-sm">
-      <p>{restaurantInfo.metadata.announcement}</p>
+      <div 
+        dangerouslySetInnerHTML={{ __html: restaurantSettings.metadata.announcement }}
+      />
     </div>
   )
 }

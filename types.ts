@@ -4,20 +4,34 @@ export interface RestaurantInfo {
   slug: string
   metadata: {
     restaurant_name: string
-    tagline: string
-    description: string
-    phone: string
-    email: string
     address: string
+    phone: string
     hours: string
-    logo: {
+    order_link?: string
+    nav_logo?: {
       imgix_url: string
       url: string
     }
-    hero_image: {
+    logo?: {
       imgix_url: string
       url: string
     }
+    about?: string
+  }
+}
+
+export interface RestaurantSettings {
+  id: string
+  title: string
+  slug: string
+  metadata: {
+    hero_text: string
+    hero_subtitle: string
+    hero_image?: {
+      imgix_url: string
+      url: string
+    }
+    show_ordering: boolean
     announcement?: string
   }
 }
@@ -27,8 +41,9 @@ export interface MenuCategory {
   title: string
   slug: string
   metadata: {
+    category_name: string
     description?: string
-    order?: number
+    display_order?: number
   }
 }
 
@@ -37,30 +52,48 @@ export interface MenuItem {
   title: string
   slug: string
   metadata: {
-    description: string
-    price: number
+    dish_name: string
+    description?: string
+    price: string
     category: {
       id: string
       title: string
       slug: string
+      metadata: {
+        category_name: string
+        description?: string
+        display_order?: number
+      }
     }
-    image?: {
+    food_image?: {
       imgix_url: string
       url: string
     }
-    popular?: boolean
-    spicy?: boolean
-    vegetarian?: boolean
+    available: boolean
+    spicy_level?: {
+      key: string
+      value: string
+    }
+    dietary_options?: string[] | null
   }
 }
 
 export interface Review {
   id: string
   title: string
+  slug: string
   metadata: {
     customer_name: string
-    rating: number
+    rating: {
+      key: string
+      value: string
+    }
     review_text: string
-    date: string
+    review_date: string
+    source?: {
+      key: string
+      value: string
+    }
+    featured: boolean
   }
 }

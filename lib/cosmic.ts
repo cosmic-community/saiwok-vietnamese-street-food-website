@@ -1,5 +1,5 @@
 import { createBucketClient } from '@cosmicjs/sdk'
-import { RestaurantInfo, MenuCategory, MenuItem, Review } from '@/types'
+import { RestaurantInfo, RestaurantSettings, MenuCategory, MenuItem, Review } from '@/types'
 
 const cosmic = createBucketClient({
   bucketSlug: process.env.COSMIC_BUCKET_SLUG || '',
@@ -8,17 +8,32 @@ const cosmic = createBucketClient({
 
 export async function getRestaurantInfo(): Promise<RestaurantInfo | null> {
   try {
-    const { object } = await cosmic.objects
-      .findOne({
+    const { objects } = await cosmic.objects
+      .find({
         type: 'restaurant-info',
-        slug: 'restaurant-info',
       })
       .props(['id', 'title', 'slug', 'metadata'])
       .depth(1)
 
-    return object as RestaurantInfo
+    return objects[0] as RestaurantInfo || null
   } catch (error) {
     console.error('Error fetching restaurant info:', error)
+    return null
+  }
+}
+
+export async function getRestaurantSettings(): Promise<RestaurantSettings | null> {
+  try {
+    const { objects } = await cosmic.objects
+      .find({
+        type: 'restaurant-settings',
+      })
+      .props(['id', 'title', 'slug', 'metadata'])
+      .depth(1)
+
+    return objects[0] as RestaurantSettings || null
+  } catch (error) {
+    console.error('Error fetching restaurant settings:', error)
     return null
   }
 }
@@ -30,10 +45,12 @@ export async function getMenuCategories(): Promise<MenuCategory[]> {
         type: 'menu-categories',
       })
       .props(['id', 'title', 'slug', 'metadata'])
-      .sort('metadata.order')
       .depth(1)
 
-    return objects as MenuCategory[]
+    // Sort by display_order
+    return (objects as MenuCategory[]).sort((a, b) => 
+      (a.metadata.display_order || 0) - (b.metadata.display_order || 0)
+    )
   } catch (error) {
     console.error('Error fetching menu categories:', error)
     return []
@@ -62,7 +79,7 @@ export async function getReviews(): Promise<Review[]> {
       .find({
         type: 'reviews',
       })
-      .props(['id', 'title', 'metadata'])
+      .props(['id', 'title', 'slug', 'metadata'])
       .limit(6)
       .depth(1)
 
