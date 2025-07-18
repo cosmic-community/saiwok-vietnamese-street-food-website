@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --primary: 0 0% 0%;
+    --secondary: 0 0% 100%;
+    --accent: 0 84% 45%;
+    --accent-light: 0 76% 60%;
+    --gray-dark: 0 0% 12%;
+    --gray-medium: 0 0% 20%;
+    --gray-light: 0 0% 40%;
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-primary text-secondary font-sans;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .hero-section {
+    @apply relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat;
+  }
+  
+  .hero-overlay {
+    @apply absolute inset-0 bg-black bg-opacity-60;
+  }
+  
+  .hero-content {
+    @apply relative z-10 text-center text-white;
+  }
+  
+  .section-padding {
+    @apply py-16 sm:py-24;
+  }
+  
+  .card {
+    @apply bg-gray-dark border border-gray-medium rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl;
+  }
+  
+  .btn-primary {
+    @apply bg-accent hover:bg-accent-light text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300 inline-flex items-center justify-center;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border-2 border-accent hover:bg-accent text-accent hover:text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 inline-flex items-center justify-center;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent to-accent-light bg-clip-text text-transparent;
+  }
+  
+  .menu-item-card {
+    @apply bg-gray-dark border border-gray-medium rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl hover:border-accent;
+  }
+  
+  .spicy-indicator {
+    @apply inline-flex items-center space-x-1 text-sm;
+  }
+  
+  .dietary-badge {
+    @apply inline-block bg-accent bg-opacity-20 text-accent px-2 py-1 rounded-full text-xs font-medium;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+}

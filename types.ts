@@ -1,0 +1,108 @@
+// Base Cosmic object interface
+export interface CosmicObject {
+  id: string;
+  slug: string;
+  title: string;
+  content?: string;
+  metadata: Record<string, any>;
+  type: string;
+  created_at: string;
+  modified_at: string;
+}
+
+// Restaurant Settings interface
+export interface RestaurantSettings extends CosmicObject {
+  type: 'restaurant-settings';
+  metadata: {
+    hero_text?: string;
+    hero_subtitle?: string;
+    hero_image?: {
+      url: string;
+      imgix_url: string;
+    };
+    show_ordering?: boolean;
+    announcement?: string;
+  };
+}
+
+// Restaurant Info interface
+export interface RestaurantInfo extends CosmicObject {
+  type: 'restaurant-info';
+  metadata: {
+    restaurant_name: string;
+    address: string;
+    phone: string;
+    hours?: string;
+    order_link?: string;
+    logo?: {
+      url: string;
+      imgix_url: string;
+    };
+    about?: string;
+  };
+}
+
+// Menu Category interface
+export interface MenuCategory extends CosmicObject {
+  type: 'menu-categories';
+  metadata: {
+    category_name: string;
+    description?: string;
+    display_order?: number;
+  };
+}
+
+// Menu Item interface
+export interface MenuItem extends CosmicObject {
+  type: 'menu-items';
+  metadata: {
+    dish_name: string;
+    description?: string;
+    price: string;
+    category?: MenuCategory;
+    food_image?: {
+      url: string;
+      imgix_url: string;
+    };
+    available?: boolean;
+    spicy_level?: {
+      key: SpicyLevel;
+      value: string;
+    };
+    dietary_options?: DietaryOption[];
+  };
+}
+
+// Type literals for select-dropdown and checkbox values
+export type SpicyLevel = 'none' | 'mild' | 'medium' | 'hot';
+export type DietaryOption = 'Vegetarian' | 'Vegan' | 'Gluten-Free' | 'Dairy-Free';
+
+// API response types
+export interface CosmicResponse<T> {
+  objects: T[];
+  total: number;
+  limit: number;
+  skip: number;
+}
+
+// Type guards for runtime validation
+export function isRestaurantSettings(obj: CosmicObject): obj is RestaurantSettings {
+  return obj.type === 'restaurant-settings';
+}
+
+export function isRestaurantInfo(obj: CosmicObject): obj is RestaurantInfo {
+  return obj.type === 'restaurant-info';
+}
+
+export function isMenuCategory(obj: CosmicObject): obj is MenuCategory {
+  return obj.type === 'menu-categories';
+}
+
+export function isMenuItem(obj: CosmicObject): obj is MenuItem {
+  return obj.type === 'menu-items';
+}
+
+// Helper function for error handling
+export function hasStatus(error: unknown): error is { status: number } {
+  return typeof error === 'object' && error !== null && 'status' in error;
+}
