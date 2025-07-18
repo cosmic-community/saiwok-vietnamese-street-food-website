@@ -1,5 +1,5 @@
 import { MenuCategory, MenuItem } from '@/types'
-import MenuItemCard from '@/components/MenuItemCard'
+import MenuItemCard from './MenuItemCard'
 
 interface MenuCategorySectionProps {
   category: MenuCategory
@@ -8,19 +8,15 @@ interface MenuCategorySectionProps {
 
 export default function MenuCategorySection({ category, items }: MenuCategorySectionProps) {
   return (
-    <div className="animate-slide-up">
-      <div className="mb-8">
-        <h3 className="text-2xl md:text-3xl font-bold mb-2 text-accent">
-          {category.metadata?.category_name}
-        </h3>
-        {category.metadata?.description && (
-          <p className="text-gray-300 text-lg">
-            {category.metadata.description}
-          </p>
+    <div className="mb-16">
+      <div className="text-center mb-8">
+        <h3 className="text-3xl font-bold text-gray-900 mb-2">{category.title}</h3>
+        {category.metadata.description && (
+          <p className="text-gray-600">{category.metadata.description}</p>
         )}
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {items.map((item) => (
           <MenuItemCard key={item.id} item={item} />
         ))}
