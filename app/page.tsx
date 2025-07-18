@@ -1,66 +1,35 @@
-import { getRestaurantSettings, getRestaurantInfo, getMenuCategories, getMenuItems, getFeaturedReviews } from '@/lib/cosmic'
+import { getRestaurantInfo, getMenuCategories, getMenuItems, getReviews } from '@/lib/cosmic'
+import Header from '@/components/Header'
 import Hero from '@/components/Hero'
-import AnnouncementBanner from '@/components/AnnouncementBanner'
 import About from '@/components/About'
 import Menu from '@/components/Menu'
 import Reviews from '@/components/Reviews'
 import Contact from '@/components/Contact'
+import Footer from '@/components/Footer'
+import AnnouncementBanner from '@/components/AnnouncementBanner'
 
 export default async function Home() {
-  // Fetch all data in parallel
-  const [settings, restaurantInfo, categories, menuItems, reviews] = await Promise.all([
-    getRestaurantSettings(),
+  const [restaurantInfo, menuCategories, menuItems, reviews] = await Promise.all([
     getRestaurantInfo(),
     getMenuCategories(),
     getMenuItems(),
-    getFeaturedReviews()
+    getReviews()
   ])
 
-  // Handle case where restaurant info is not found
   if (!restaurantInfo) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Restaurant information not found</h1>
-          <p className="text-gray-600">Please check your CMS configuration.</p>
-        </div>
-      </div>
-    )
+    return <div>Loading...</div>
   }
-
-  const showOrdering = settings?.metadata?.show_ordering ?? true
-  const announcement = settings?.metadata?.announcement
 
   return (
     <main>
-      {/* Announcement Banner */}
-      {announcement && (
-        <AnnouncementBanner announcement={announcement} />
-      )}
-
-      {/* Hero Section */}
-      <Hero 
-        settings={settings}
-        restaurantInfo={restaurantInfo}
-        showOrdering={showOrdering}
-      />
-
-      {/* About Section */}
+      <AnnouncementBanner restaurantInfo={restaurantInfo} />
+      <Header restaurantInfo={restaurantInfo} />
+      <Hero restaurantInfo={restaurantInfo} />
       <About restaurantInfo={restaurantInfo} />
-
-      {/* Menu Section */}
-      <Menu 
-        categories={categories}
-        menuItems={menuItems}
-      />
-
-      {/* Reviews Section */}
-      {reviews.length > 0 && (
-        <Reviews reviews={reviews} />
-      )}
-
-      {/* Contact Section */}
+      <Menu categories={menuCategories} items={menuItems} />
+      <Reviews reviews={reviews} />
       <Contact restaurantInfo={restaurantInfo} />
+      <Footer restaurantInfo={restaurantInfo} />
     </main>
   )
 }
